@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the dataset
-data = pd.read_csv('C:/Users/Du-Wayne.Frieslaar/Desktop/Something different/diabetes_dataset.csv')
+data = pd.read_csv('C:\\Users\\suppo\\Downloads\\Python-project-main\\Python-project-main\\Eating-python\\diabetes_dataset.csv')
+
+
+
 
 
 
