@@ -1,1 +1,1 @@
-# Eating-python
+In this project I manage to gather data on the likelyhood of diabetes based on different factors like age, glucose levels, and BMI. This project neatly displays the founding results in different graphs thanks to matplotlib library. This project allows me to manipulate the data as well using the pandas library, and Numpy allows me to easily handle numerical values, and mathematical computations in my code.
