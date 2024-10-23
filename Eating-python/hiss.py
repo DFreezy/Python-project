@@ -7,12 +7,6 @@ import seaborn as sns
 # Load the dataset
 data = pd.read_csv('C:\\Users\\suppo\\Downloads\\Python-project-main\\Python-project-main\\Eating-python\\diabetes_dataset.csv')
 
-
-
-
-
-
-
 # Display basic information about the dataset
 print("Dataset Info:")
 print(data.info())
@@ -39,32 +33,47 @@ print("\nDescriptive Statistics:")
 print(data.describe())
 
 # Visualize the distribution of a numerical feature (e.g., glucose level)
-sns.histplot(data['Glucose'], kde=True, color='blue')  # Replace 'Glucose' with the actual column name
+sns.histplot(data['Glucose'], kde=True, color='blue')
 plt.title('Distribution of Glucose Level')
 plt.show()
 
 # Scatter plot to explore relationships between variables
-sns.scatterplot(x='Glucose', y='BMI', hue='Outcome', data=data)  # Replace 'BMI' and 'Outcome' as needed
+sns.scatterplot(x='Glucose', y='BMI', hue='Outcome', data=data)
 plt.title('Glucose Level vs BMI')
 plt.show()
 
 # Boxplot to explore outliers
-sns.boxplot(x='Outcome', y='Glucose', data=data)  # Replace 'Glucose' as needed
+sns.boxplot(x='Outcome', y='Glucose', data=data)
 plt.title('Boxplot of Glucose Level by Outcome')
 plt.show()
 
 # Data Manipulation
-# Create a new column, for example, a BMI category
+# 1. Filter rows where Glucose is greater than 120
+filtered_data = data[data['Glucose'] > 120]
+print("\nFiltered Data (Glucose > 120):")
+print(filtered_data.head())
+
+# 2. Sort data by Glucose level in descending order
+sorted_data = data.sort_values(by='Glucose', ascending=False)
+print("\nData sorted by Glucose level:")
+print(sorted_data.head())
+
+# 3. Create a new column for Glucose levels: 'High' if glucose > 140, else 'Normal'
+data['Glucose_Level'] = np.where(data['Glucose'] > 140, 'High', 'Normal')
+print("\nData with new Glucose_Level column:")
+print(data[['Glucose', 'Glucose_Level']].head())
+
+# 4. Create a new column for BMI category
 data['BMI_Category'] = pd.cut(data['BMI'], bins=[0, 18.5, 24.9, 29.9, 40], labels=['Underweight', 'Normal', 'Overweight', 'Obese'])
 print("\nNew Data with BMI Category:")
 print(data.head())
 
-# Grouping data by outcome and calculating mean of each feature
-grouped_data = data.groupby('Outcome').mean()
-print("\nMean values by Outcome:")
+# 5. Grouping data by outcome and calculating mean of Glucose and BMI
+grouped_data = data.groupby('Outcome').agg({'Glucose': 'mean', 'BMI': 'mean'})
+print("\nGrouped Data by Outcome:")
 print(grouped_data)
 
-# Correlation matrix to analyze relationships between numerical features
+# 6. Correlation matrix to analyze relationships between numerical features
 correlation_matrix = data.corr()
 print("\nCorrelation Matrix:")
 print(correlation_matrix)
@@ -77,12 +86,13 @@ plt.show()
 
 # Data Visualization
 # Pairplot to visualize relationships between features and outcomes
-sns.pairplot(data, hue='Outcome')  # Replace 'Outcome' as needed
+sns.pairplot(data, hue='Outcome')
 plt.title('Pairplot of Features by Outcome')
 plt.show()
 
 # Report Findings
-# Summary: Based on the analysis, you can provide insights on relationships, distributions, etc.
+# You can provide insights based on the analysis here
 
-# Save your analysis results to a CSV file (optional)
-# data.to_csv('analysis_results.csv', index=False)
+# Save the manipulated dataset to a CSV file (optional)
+# data.to_csv('manipulated_diabetes_dataset.csv', index=False)
+
